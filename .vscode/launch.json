@@ -1,0 +1,28 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "FastAPI: Uvicorn",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "uvicorn",
+            "args": [
+                "app.main:app", // Replace 'main:app' with your actual app module and instance
+                "--reload",
+                "--host", "127.0.0.1",
+                "--port", "8000"
+            ],
+            "console": "integratedTerminal",
+            "justMyCode": true // Set to false to debug into library code
+        },
+        {
+            "name": "Evaluate",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "eval.evaluate",
+            "args": ["./grip_qa", "--repo-path", "./grip-repo"],
+            "console": "integratedTerminal",
+            "justMyCode": true
+        }
+    ]
+}
