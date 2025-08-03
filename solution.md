@@ -23,6 +23,7 @@ get best k components by cosine_similarity
 # Improve RAG
 encode each textual files as a single chunk.
 Top k - ignore probabilities, it looks fine for now.
+Limit top k results to context length = 8192 tokens.
 encode also file names, not only filename but all relative path
 ```
 def add_file_name(content: str, full_path: str, repo_path: str) -> str:
@@ -32,9 +33,18 @@ def add_file_name(content: str, full_path: str, repo_path: str) -> str:
     return f"In file {file_name}, the content is {content}"
 
 ```
-After the improvements in the third test, the model returns:
+Before the improvements in the third test, the model returns:
 'The file that imports `browser.py` is not specified in the provided context.'
+After the improvements:
+The `wait_for_server` function is defined in the file grip/browser.py. Its purpose is to block the execution until a local server is listening on the specified host and port. It can be used in conjunction with running the Flask server. The function also accepts a `cancel_event` argument which can be used to cancel the wait.
 
+"bleu_score": {
+"mean": 0.10436094236188743,
+"median": 0.10412878801528631,
+"std": 0.05197161670076285,
+"min": 0.027513907290274555,
+"max": 0.16997739591521002
+}
 
 ## Q&A6
 what is ReadmeNotFoundError exception? Please give a usage example.
@@ -211,7 +221,10 @@ This would bind the server to all interfaces on port 8080.
 
 # Improvements
 different model - maybe QWEN
-different evaluation - like spider dataset in text2SQL
+different evaluation 
+1) like spider dataset in text2SQL
+2) model do the comparison between the answers
+
 different RAG - graph rag, if you do not get the right content
 
 
