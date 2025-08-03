@@ -24,7 +24,14 @@ get best k components by cosine_similarity
 encode each textual files as a single chunk.
 Top k - ignore probabilities, it looks fine for now.
 encode also file names, not only filename but all relative path
+```
+def add_file_name(content: str, full_path: str, repo_path: str) -> str:
+    full_path = full_path.replace("\\",r"/")
+    repo_path = repo_path.replace("\\",r"/")
+    file_name = full_path.replace(repo_path, "")
+    return f"In file {file_name}, the content is {content}"
 
+```
 After the improvements in the third test, the model returns:
 'The file that imports `browser.py` is not specified in the provided context.'
 
