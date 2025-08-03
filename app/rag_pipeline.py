@@ -13,6 +13,6 @@ def answer_question(repo_path: str, question: str) -> str:
 
     chunks = repo_index_cache[repo_path]
     top_chunks = get_top_k_chunks(question, chunks, k=5)
-    context = "\n\n".join([chunk['content'] for chunk in top_chunks])
-    return call_openai_with_context(question, context)
+    context_list = [chunk["content"] for chunk in top_chunks]
+    return call_openai_with_context(question, context_list)
 

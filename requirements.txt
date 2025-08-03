@@ -24,3 +24,4 @@ langchain_openai
 fastmcp
 langchain
 langchain_community
+binaryornot
