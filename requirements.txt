@@ -20,3 +20,8 @@ tiktoken
 Levenshtein
 textstat
 rouge_score
+langchain_openai
+fastmcp
+langchain
+langchain_community
+binaryornot

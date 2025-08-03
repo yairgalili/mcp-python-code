@@ -1,65 +1,70 @@
 {
   "report": {
-    "evaluation_timestamp": "2025-08-03T00:48:33.909668",
+    "evaluation_timestamp": "2025-08-03T22:06:36.353740",
     "summary": {
       "total_questions": 10,
       "successful_evaluations": 10,
       "success_rate": 1.0,
-      "average_response_time": 8.398503923416138,
-      "overall_quality_score": 48.6912745513607
+      "average_response_time": 19.38865406513214,
+      "overall_quality_score": 51.364208441670904
     },
     "quality_metrics": {
       "bleu_score": {
-        "mean": 0.08772979728506276,
-        "median": 0.10490317245658279,
-        "std": 0.06084255475853148,
-        "min": 0.007267274044312383,
-        "max": 0.1541570776538462
+        "mean": 0.09116364372966343,
+        "median": 0.07373653129668944,
+        "std": 0.056332989602140365,
+        "min": 0.010348116814408122,
+        "max": 0.1683533669301253
       },
       "rouge_scores": {
         "rouge1": {
-          "mean": 0.3945674253722721,
-          "median": 0.37116039628598535,
-          "std": 0.0881004924537038
+          "mean": 0.4395666059631073,
+          "median": 0.43622613927075427,
+          "std": 0.08713647471136382
         },
         "rouge2": {
-          "mean": 0.12718803744136456,
-          "median": 0.10291005291005291,
-          "std": 0.0722238930687212
+          "mean": 0.17771822843879231,
+          "median": 0.15884057971014492,
+          "std": 0.11188400012039285
         },
         "rougeL": {
-          "mean": 0.24447363956994303,
-          "median": 0.23328311992635364,
-          "std": 0.07451360967784645
+          "mean": 0.29619858572403873,
+          "median": 0.2765075300286568,
+          "std": 0.11928660148232692
         }
       },
       "semantic_similarity": {
-        "mean": 0.22814911913048846,
-        "median": 0.250253164556962,
-        "std": 0.07447310666947339
+        "mean": 0.2804663051828121,
+        "median": 0.2701406649616368,
+        "std": 0.11804757355620167
       },
       "edit_distance_similarity": {
-        "mean": 0.27138798960987087,
-        "median": 0.2656120320058693,
-        "std": 0.04848586644085388
+        "mean": 0.28833327190965363,
+        "median": 0.28965718283582087,
+        "std": 0.04049144539648529
       },
       "length_consistency": {
-        "mean_ratio": 1.0660030049477063,
-        "median_ratio": 0.8826754385964912,
-        "std_ratio": 0.6259975601685689
+        "mean_ratio": 0.9976784868613774,
+        "median_ratio": 0.8251201923076923,
+        "std_ratio": 0.7052537368343194
+      },
+      "chatgpt_score": {
+        "mean": 85,
+        "median": 90.0,
+        "std": 10.801234497346433
       }
     },
     "performance_analysis": {
       "response_time": {
-        "mean": 8.398503923416138,
-        "median": 7.649325013160706,
-        "std": 2.737661653895908,
-        "min": 5.734593152999878,
-        "max": 13.99588680267334,
-        "p95": 13.99588680267334
+        "mean": 19.38865406513214,
+        "median": 6.953867316246033,
+        "std": 40.18176784906366,
+        "min": 3.3714730739593506,
+        "max": 133.50357723236084,
+        "p95": 133.50357723236084
       },
       "throughput": {
-        "questions_per_second": 0.11906882572405164
+        "questions_per_second": 0.05157655588885688
       },
       "reliability": {
         "success_rate": 1.0,
@@ -68,11 +73,10 @@
       }
     },
     "recommendations": [
-      "SLOW RESPONSE TIME (8.40s): Consider optimizing server performance",
-      "LOW BLEU SCORE (0.088): Generated answers may not match expected format",
-      "LOW ROUGE-1 SCORE (0.395): Generated answers lack content overlap",
-      "LOW SEMANTIC SIMILARITY (0.228): Answers may be semantically different",
-      "LOW EDIT SIMILARITY (0.271): High text-level differences from expected answers"
+      "SLOW RESPONSE TIME (19.39s): Consider optimizing server performance",
+      "LOW BLEU SCORE (0.091): Generated answers may not match expected format",
+      "LOW SEMANTIC SIMILARITY (0.280): Answers may be semantically different",
+      "LOW EDIT SIMILARITY (0.288): High text-level differences from expected answers"
     ],
     "grade": "F"
   },
@@ -81,360 +85,360 @@
       "question_file": "0001.q.md",
       "question": "How do I run grip from command line on a specific port?",
       "expected_answer": "To run Grip from the command line on a specific port, you can specify the port number as an argument. \n\nHere’s how you do it:\n\n$ grip 80\n * Running on http://localhost:80/\n\nThis command starts the Grip server on port 80. You can replace 80 with any desired port number.\n\nreference:\n\n```markdown:README.md\n    You can also specify a port:\n    ```console\n    $ grip 80\n    * Running on http://localhost:80/\n    ```\n```",
-      "predicted_answer": "You can run Grip from the command line on a specific port by using the following command:\n\n```bash\ngrip <path_to_your_file> <hostname>:<port>\n```\n\nReplace `<path_to_your_file>` with the path to the file you want to render, `<hostname>` with the hostname (usually localhost), and `<port>` with the port number you want to use.\n\nFor example, if you want to render a README.md file on localhost at port 8080, you would use:\n\n```bash\ngrip README.md localhost:8080\n```",
+      "predicted_answer": "You can run grip from the command line on a specific port by specifying the port number after the file or directory you want to render. The command would look like this:\n\n```bash\ngrip <path> <port>\n```\n\nReplace `<path>` with the file or directory you want to render and `<port>` with the port number you want to use. For example, if you want to render a file named README.md on port 8080, you would use the following command:\n\n```bash\ngrip README.md 8080\n```",
       "success": true,
       "error": null,
-      "response_time": 6.880162239074707,
-      "status_code": 200,
+      "response_time": 133.50357723236084,
       "metrics": {
-        "bleu_score": 0.14957140605159414,
+        "bleu_score": 0.1565448888446117,
         "rouge_scores": {
-          "rouge1": 0.4533333333333333,
-          "rouge2": 0.17567567567567569,
-          "rougeL": 0.30666666666666664
+          "rouge1": 0.4605263157894737,
+          "rouge2": 0.21333333333333335,
+          "rougeL": 0.34210526315789475
         },
-        "semantic_similarity": 0.27450980392156865,
-        "edit_distance_similarity": 0.29589632829373647,
+        "semantic_similarity": 0.2916666666666667,
+        "edit_distance_similarity": 0.32969432314410485,
         "length_metrics": {
-          "length_ratio": 1.0735294117647058,
-          "length_difference": 5,
+          "length_ratio": 1.2205882352941178,
+          "length_difference": 15,
           "ref_length": 68,
-          "hyp_length": 73
+          "hyp_length": 83
         },
         "readability": {
-          "flesch_reading_ease": 57.700657276995315,
-          "flesch_kincaid_grade": 11.090704225352116,
-          "gunning_fog": 14.537089201877937
+          "flesch_reading_ease": 73.48125000000002,
+          "flesch_kincaid_grade": 8.040833333333335,
+          "gunning_fog": 10.569135802469136
         },
         "content_coverage": {
-          "concept_coverage": 0.16826923076923078,
-          "key_phrase_coverage": 0.20833333333333334
+          "concept_coverage": 0.1752136752136752,
+          "key_phrase_coverage": 0.2222222222222222
         },
-        "response_time": 6.880162239074707
+        "chatgpt_score": 90,
+        "response_time": 133.50357723236084
       }
     },
     {
       "question_file": "0002.q.md",
       "question": "Can I modify and distribute the Grip software, and are there any conditions I need to follow?",
       "expected_answer": "Yes, you are allowed to modify and distribute the Grip software under the terms of its license. The license grants you the rights to use, copy, modify, merge, publish, distribute, sublicense, and sell copies of the software. However, there are conditions you must follow:\n1.\tInclude the Copyright Notice – Any copies or substantial portions of the software must retain the original copyright notice:\n\n        Copyright (c) 2014-2022 Joe Esposito <joe@joeyespo.com>\n\n\n2.\tInclude the Permission Notice – The permission notice that grants these rights must be included in all distributions of the software.\n3.\tNo Warranty – The software is provided “as is,” without any warranty of any kind, either express or implied. This means the authors are not responsible for any issues, damages, or liabilities arising from its use.\n\nThese conditions allow you to freely use and modify the software while ensuring that the original author receives proper credit and that users understand the limitations of liability.",
-      "predicted_answer": "The context provided does not include information about the licensing or distribution conditions for the Grip software. You would need to check the software's license agreement or terms of service for this information. Typically, open source software allows for modification and distribution, but there may be specific conditions you need to follow such as attribution to the original creators or maintaining the same license for any derivative works.",
+      "predicted_answer": "Yes, you can modify and distribute the Grip software. It is licensed under the MIT license, which allows for modification and distribution of the software. However, there are conditions you need to follow. You must include the original copyright notice and the MIT license itself in any copies or substantial portions of the software you distribute.",
       "success": true,
       "error": null,
-      "response_time": 6.447445631027222,
-      "status_code": 200,
+      "response_time": 5.356708765029907,
       "metrics": {
-        "bleu_score": 0.007267274044312383,
+        "bleu_score": 0.0621089752321896,
         "rouge_scores": {
-          "rouge1": 0.34513274336283184,
-          "rouge2": 0.08035714285714286,
-          "rougeL": 0.1592920353982301
+          "rouge1": 0.4413145539906103,
+          "rouge2": 0.2559241706161137,
+          "rougeL": 0.3192488262910798
         },
-        "semantic_similarity": 0.1134020618556701,
-        "edit_distance_similarity": 0.254726368159204,
+        "semantic_similarity": 0.2345679012345679,
+        "edit_distance_similarity": 0.27462686567164174,
         "length_metrics": {
-          "length_ratio": 0.43312101910828027,
-          "length_difference": 89,
+          "length_ratio": 0.35668789808917195,
+          "length_difference": 101,
           "ref_length": 157,
-          "hyp_length": 68
+          "hyp_length": 56
         },
         "readability": {
-          "flesch_reading_ease": 29.55774509803925,
-          "flesch_kincaid_grade": 14.767647058823531,
-          "gunning_fog": 19.06666666666667
+          "flesch_reading_ease": 43.06428571428572,
+          "flesch_kincaid_grade": 10.730714285714289,
+          "gunning_fog": 13.457142857142856
         },
         "content_coverage": {
-          "concept_coverage": 0.026169590643274853,
-          "key_phrase_coverage": 0.04678362573099415
+          "concept_coverage": 0.13450292397660818,
+          "key_phrase_coverage": 0.15789473684210525
         },
-        "response_time": 6.447445631027222
+        "chatgpt_score": 90,
+        "response_time": 5.356708765029907
       }
     },
     {
       "question_file": "0003.q.md",
       "question": "Where does `wait_for_server` function is defined and what is its purpose?",
       "expected_answer": "The `wait_for_server` function, defined in `grip/browser.py`, waits until a local server starts listening on a given host and port. It repeatedly checks using `is_server_running`, sleeping for 0.1 seconds between attempts. If a `cancel_event` is provided and set, it exits early. It returns True when the server is ready. This function is used in `wait_and_start_browser` to ensure the server is running before opening the browser.",
-      "predicted_answer": "The `wait_for_server` function is defined in the same context as the other functions. Its purpose is to block the execution until a local server is listening on the specified host and port. It is intended to be used in conjunction with running the Flask server. The function will stop waiting if a cancel event is set.",
+      "predicted_answer": "The `wait_for_server` function is defined in the file grip/browser.py. Its purpose is to block the execution until a local server is listening on the specified host and port. It can be used in conjunction with running the Flask server. If a cancel_event is set, it can cancel the wait.",
       "success": true,
       "error": null,
-      "response_time": 5.734593152999878,
-      "status_code": 200,
+      "response_time": 4.872183084487915,
       "metrics": {
-        "bleu_score": 0.14838729523283564,
+        "bleu_score": 0.16025733966479333,
         "rouge_scores": {
-          "rouge1": 0.556390977443609,
-          "rouge2": 0.2900763358778626,
-          "rougeL": 0.37593984962406013
+          "rouge1": 0.6046511627906976,
+          "rouge2": 0.3464566929133859,
+          "rougeL": 0.48062015503875966
         },
-        "semantic_similarity": 0.26,
-        "edit_distance_similarity": 0.34802784222737815,
+        "semantic_similarity": 0.34782608695652173,
+        "edit_distance_similarity": 0.34338747099767986,
         "length_metrics": {
-          "length_ratio": 0.875,
-          "length_difference": 8,
+          "length_ratio": 0.765625,
+          "length_difference": 15,
           "ref_length": 64,
-          "hyp_length": 56
+          "hyp_length": 49
         },
         "readability": {
-          "flesch_reading_ease": 64.21428571428572,
-          "flesch_kincaid_grade": 7.780714285714286,
-          "gunning_fog": 9.885714285714286
+          "flesch_reading_ease": 68.36451530612246,
+          "flesch_kincaid_grade": 6.767091836734696,
+          "gunning_fog": 9.79795918367347
         },
         "content_coverage": {
-          "concept_coverage": 0.1603896103896104,
-          "key_phrase_coverage": 0.22077922077922077
+          "concept_coverage": 0.19237012987012986,
+          "key_phrase_coverage": 0.2597402597402597
         },
-        "response_time": 5.734593152999878
+        "chatgpt_score": 90,
+        "response_time": 4.872183084487915
       }
     },
     {
       "question_file": "0004.q.md",
       "question": "which file import `browser.py`?",
       "expected_answer": "The file `grip/app.py` imports `browser.py`.\n\nreference:\n```python:grip/app.py\nfrom .browser import start_browser_when_ready\n```",
-      "predicted_answer": "The code provided does not import a file named `browser.py`.",
+      "predicted_answer": "The file that imports `browser.py` is `app.py`.",
       "success": true,
       "error": null,
-      "response_time": 6.067592620849609,
-      "status_code": 200,
+      "response_time": 3.3714730739593506,
       "metrics": {
-        "bleu_score": 0.10306479015065681,
+        "bleu_score": 0.1179650190360373,
         "rouge_scores": {
-          "rouge1": 0.3225806451612903,
-          "rouge2": 0.06896551724137931,
-          "rougeL": 0.25806451612903225
+          "rouge1": 0.48275862068965514,
+          "rouge2": 0.2962962962962963,
+          "rougeL": 0.48275862068965514
         },
-        "semantic_similarity": 0.3125,
-        "edit_distance_similarity": 0.2265625,
+        "semantic_similarity": 0.35714285714285715,
+        "edit_distance_similarity": 0.3046875,
         "length_metrics": {
-          "length_ratio": 0.8333333333333334,
-          "length_difference": 2,
+          "length_ratio": 0.5833333333333334,
+          "length_difference": 5,
           "ref_length": 12,
-          "hyp_length": 10
+          "hyp_length": 7
         },
         "readability": {
-          "flesch_reading_ease": 78.24500000000002,
-          "flesch_kincaid_grade": 4.830000000000002,
-          "gunning_fog": 8.0
+          "flesch_reading_ease": 82.42535714285715,
+          "flesch_kincaid_grade": 2.6321428571428562,
+          "gunning_fog": 1.4000000000000001
         },
         "content_coverage": {
-          "concept_coverage": 0.11904761904761904,
-          "key_phrase_coverage": 0.14285714285714285
+          "concept_coverage": 0.16666666666666666,
+          "key_phrase_coverage": 0.23809523809523808
         },
-        "response_time": 6.067592620849609
+        "chatgpt_score": 90,
+        "response_time": 3.3714730739593506
       }
     },
     {
       "question_file": "0005.q.md",
       "question": "what are the `SUPPORTED_EXTENSIONS` and where are they defined?",
       "expected_answer": "The `SUPPORTED_EXTENSIONS` is a list of supported file extensions for the Grip application. It is defined in `grip/constants.py`.\n\nreference:\n```python:grip/constants.py\nSUPPORTED_EXTENSIONS = ['.md', '.markdown']\n```",
-      "predicted_answer": "The `SUPPORTED_EXTENSIONS` are not defined or mentioned in the provided context.",
+      "predicted_answer": "The `SUPPORTED_EXTENSIONS` are ['.md', '.markdown']. They are defined in the file grip/constants.py.",
       "success": true,
       "error": null,
-      "response_time": 6.2357470989227295,
-      "status_code": 200,
+      "response_time": 3.465095043182373,
       "metrics": {
-        "bleu_score": 0.028612777371338115,
+        "bleu_score": 0.1683533669301253,
         "rouge_scores": {
-          "rouge1": 0.28571428571428575,
-          "rouge2": 0.1,
-          "rougeL": 0.23809523809523808
+          "rouge1": 0.5333333333333333,
+          "rouge2": 0.2790697674418604,
+          "rougeL": 0.3555555555555555
         },
-        "semantic_similarity": 0.16,
-        "edit_distance_similarity": 0.2764976958525346,
+        "semantic_similarity": 0.5454545454545454,
+        "edit_distance_similarity": 0.32258064516129037,
         "length_metrics": {
-          "length_ratio": 0.44,
-          "length_difference": 14,
+          "length_ratio": 0.48,
+          "length_difference": 13,
           "ref_length": 25,
-          "hyp_length": 11
+          "hyp_length": 12
         },
         "readability": {
-          "flesch_reading_ease": 41.8518181818182,
-          "flesch_kincaid_grade": 10.154545454545456,
-          "gunning_fog": 11.672727272727274
+          "flesch_reading_ease": 52.69500000000002,
+          "flesch_kincaid_grade": 7.400000000000002,
+          "gunning_fog": 9.066666666666668
         },
         "content_coverage": {
-          "concept_coverage": 0.0625,
-          "key_phrase_coverage": 0.075
+          "concept_coverage": 0.2125,
+          "key_phrase_coverage": 0.25
         },
-        "response_time": 6.2357470989227295
+        "chatgpt_score": 100,
+        "response_time": 3.465095043182373
       }
     },
     {
       "question_file": "0006.q.md",
       "question": "what is ReadmeNotFoundError exception? Please give a usage example.",
       "expected_answer": "An error, defined in `grip/exceptions.py`, that is raised when the specified Readme could not be found.\nIt is a subclass of `NotFoundError`.\n\nAn example usage can be found in `readers.py` in the `readme_for` method of the `DirectoryReader` class:\n```python:grip/readers.py\n    def readme_for(self, subpath):\n        ...\n        # Check for existence\n        if not os.path.exists(filename):\n            raise ReadmeNotFoundError(filename)\n        ...\n```",
-      "predicted_answer": "The `ReadmeNotFoundError` is a custom exception class that inherits from `NotFoundError`. It is used to indicate that a README file was not found at a specified path. This exception is raised when the program attempts to read a README file from a path that does not exist or is not accessible.\n\nHere is a usage example:\n\n```python\ntry:\n    # Assume `readme_path` is the path to a README file\n    if not os.path.exists(readme_path):\n        raise ReadmeNotFoundError(readme_path, 'README file not found')\n    # Continue processing if the README file exists\nexcept ReadmeNotFoundError as e:\n    print(e)\n```\n\nIn this example, if the README file does not exist at the specified `readme_path`, a `ReadmeNotFoundError` is raised with the path and a custom error message. The exception is then caught and handled in the `except` block, where the error message is printed to the console.",
+      "predicted_answer": "The `ReadmeNotFoundError` is a custom exception class in Python that inherits from the `NotFoundError`. It is used to indicate that a README file was not found at a specified path. \n\nThe class takes two optional parameters: `path` and `message`. The `path` is the location where the README file was expected to be found, and `message` is a custom error message. If no custom message is provided, the error message defaults to \"No README found at {path}\".\n\nHere is an example of how this exception might be used:\n\n```python\ntry:\n    # Attempt to open README file\n    with open('path/to/README.md', 'r') as file:\n        content = file.read()\nexcept FileNotFoundError:\n    # Raise custom exception if README file not found\n    raise ReadmeNotFoundError('path/to/README.md')\n```\n\nIn this example, if the README file is not found at the specified path, a `ReadmeNotFoundError` is raised with the path where the file was expected to be found.",
       "success": true,
       "error": null,
-      "response_time": 8.590678691864014,
-      "status_code": 200,
+      "response_time": 8.422377109527588,
       "metrics": {
-        "bleu_score": 0.10674155476250878,
+        "bleu_score": 0.05930975305162528,
         "rouge_scores": {
-          "rouge1": 0.3300970873786408,
-          "rouge2": 0.1372549019607843,
-          "rougeL": 0.20388349514563106
+          "rouge1": 0.30841121495327106,
+          "rouge2": 0.0849056603773585,
+          "rougeL": 0.17757009345794392
         },
-        "semantic_similarity": 0.3181818181818182,
-        "edit_distance_similarity": 0.24659090909090908,
+        "semantic_similarity": 0.27941176470588236,
+        "edit_distance_similarity": 0.2582710779082177,
         "length_metrics": {
-          "length_ratio": 2.537037037037037,
-          "length_difference": 83,
+          "length_ratio": 2.7037037037037037,
+          "length_difference": 92,
           "ref_length": 54,
-          "hyp_length": 137
+          "hyp_length": 146
         },
         "readability": {
-          "flesch_reading_ease": 56.00398009950251,
-          "flesch_kincaid_grade": 10.996119402985077,
-          "gunning_fog": 14.903482587064676
+          "flesch_reading_ease": 63.920555555555566,
+          "flesch_kincaid_grade": 8.263333333333339,
+          "gunning_fog": 12.226604068857592
         },
         "content_coverage": {
-          "concept_coverage": 0.23215940685820205,
-          "key_phrase_coverage": 0.3076923076923077
+          "concept_coverage": 0.15755329008341057,
+          "key_phrase_coverage": 0.23076923076923078
         },
-        "response_time": 8.590678691864014
+        "chatgpt_score": 90,
+        "response_time": 8.422377109527588
       }
     },
     {
       "question_file": "0007.q.md",
       "question": "`DirectoryReader` - please explain the purpose of the class.",
       "expected_answer": "The `DirectoryReader` class, defined in `grip/readers.py`, is a subclass of `ReadmeReader` that reads README files from a directory. It locates a README file, normalizes paths, and provides methods to read file content (text or binary), determine file types, and track last modification times. It ensures safe access by preventing traversal outside the root directory. If no README is found, it either returns a default filename (if silent=True) or raises `ReadmeNotFoundError`.",
-      "predicted_answer": "The `DirectoryReader` class is a subclass of `ReadmeReader` that is designed to read README files from URL subpaths. It provides several methods to handle README files, including finding, reading, and resolving the files. \n\nThe class also provides methods to handle subpaths, such as normalizing subpaths, determining if a subpath is a binary file, getting the last updated time of a subpath, and reading the content of a subpath. \n\nIf a README file cannot be found and the `silent` parameter is set to `False`, the class will raise a `ReadmeNotFoundError`. \n\nThe class also ensures that the resulting path does not fall out of the root directory, raising a `werkzeug.exceptions.NotFound` error if it does.",
+      "predicted_answer": "The `DirectoryReader` class appears to be used for handling directories in the file system. From the provided context, it seems to take a path as an argument during initialization. If a path is provided, it resolves the path to a README file in that directory, gets the absolute path of the README file, and stores it in `self.root_filename`. It also stores the directory of the README file in `self.root_directory`. This suggests that the `DirectoryReader` class is used to read or manipulate directories and README files in those directories. However, without more context or comments in the code, it's hard to determine its exact purpose.",
       "success": true,
       "error": null,
-      "response_time": 8.418487787246704,
-      "status_code": 200,
+      "response_time": 5.839402437210083,
       "metrics": {
-        "bleu_score": 0.1541570776538462,
+        "bleu_score": 0.07572969343106294,
         "rouge_scores": {
-          "rouge1": 0.5026737967914439,
-          "rouge2": 0.1837837837837838,
-          "rougeL": 0.3315508021390374
+          "rouge1": 0.40659340659340665,
+          "rouge2": 0.07777777777777778,
+          "rougeL": 0.21978021978021978
         },
-        "semantic_similarity": 0.2876712328767123,
-        "edit_distance_similarity": 0.3470254957507082,
+        "semantic_similarity": 0.14666666666666667,
+        "edit_distance_similarity": 0.3135725429017161,
         "length_metrics": {
-          "length_ratio": 1.6,
-          "length_difference": 42,
+          "length_ratio": 1.4857142857142858,
+          "length_difference": 34,
           "ref_length": 70,
-          "hyp_length": 112
+          "hyp_length": 104
         },
         "readability": {
-          "flesch_reading_ease": 54.94547619047623,
-          "flesch_kincaid_grade": 10.232857142857146,
-          "gunning_fog": 12.466666666666669
+          "flesch_reading_ease": 53.39358974358976,
+          "flesch_kincaid_grade": 10.118076923076924,
+          "gunning_fog": 13.087179487179487
         },
         "content_coverage": {
-          "concept_coverage": 0.23972095320409925,
-          "key_phrase_coverage": 0.3146067415730337
+          "concept_coverage": 0.11174219039387578,
+          "key_phrase_coverage": 0.16853932584269662
         },
-        "response_time": 8.418487787246704
+        "chatgpt_score": 80,
+        "response_time": 5.839402437210083
       }
     },
     {
       "question_file": "0008.q.md",
       "question": "How does Grip handle the rendering of GitHub-style task lists with nested items, and what HTML structure does it generate? \nPlease provide an example of the Markdown input and corresponding HTML output.",
       "expected_answer": "Let me explain how Grip handles GitHub-style task lists by analyzing the test files and HTML output structure:\n\nThe input Markdown for nested task lists looks like this:\n\n```markdown\n- [ ] a bigger project\n  - [x] first subtask #1234\n  - [ ] follow up subtask #4321\n  - [ ] final subtask cc @mention\n- [x] a separate task\n```\n\nGrip generates specific HTML structure for these task lists, as shown in the test output:\n\n\n```664:666:tests/output/app/gfm-test-user-content.html\n<ul class=\"task-list\">\n<li class=\"task-list-item\">\n<input type=\"checkbox\" class=\"task-list-item-checkbox\" disabled> a bigger project\n```\n\n\nThe key elements of the HTML structure are:\n\n1. Task lists get the class `task-list`\n2. Each list item gets the class `task-list-item`\n3. Checkboxes are rendered as `input` elements with:\n   - type=\"checkbox\"\n   - class=\"task-list-item-checkbox\"\n   - disabled attribute\n   - checked attribute for completed tasks\n\nFor nested lists, Grip maintains the hierarchy by:\n\n\n```466:474:tests/output/renderer/gfm-test-user-context.html\n<ul class=\"contains-task-list\">\n<li class=\"task-list-item\"><input type=\"checkbox\" id=\"\" disabled=\"\" class=\"task-list-item-checkbox\"> a bigger project\n<ul class=\"contains-task-list\">\n<li class=\"task-list-item\"><input type=\"checkbox\" id=\"\" disabled=\"\" class=\"task-list-item-checkbox\" checked=\"\"> first subtask #1234</li>\n<li class=\"task-list-item\"><input type=\"checkbox\" id=\"\" disabled=\"\" class=\"task-list-item-checkbox\"> follow up subtask #4321</li>\n<li class=\"task-list-item\"><input type=\"checkbox\" id=\"\" disabled=\"\" class=\"task-list-item-checkbox\"> final subtask cc @mention</li>\n</ul>\n</li>\n<li class=\"task-list-item\"><input type=\"checkbox\" id=\"\" disabled=\"\" class=\"task-list-item-checkbox\" checked=\"\"> a separate task</li>\n```\n\n\nThis shows that:\n\n1. The parent list contains the nested list within its `li` element\n2. The nested list maintains all the same task list classes and structure\n3. Each level preserves the checkbox state (checked/unchecked)\n4. References like #1234 and @mention are properly linked in the HTML output\n\nThis implementation matches GitHub's own rendering of task lists, ensuring compatibility and consistent appearance when viewing markdown files either on GitHub or through Grip's local preview.",
-      "predicted_answer": "The code provided does not directly handle the rendering of GitHub-style task lists with nested items. However, it does mention a future plan to remove some code once the GitHub API starts rendering task lists. The code in question is:\n\n```python\nif not user_content:\n    html = INCOMPLETE_TASK_RE.sub(INCOMPLETE_TASK_SUB, html)\n    html = COMPLETE_TASK_RE.sub(COMPLETE_TASK_SUB, html)\n```\n\nThis suggests that the code is currently patching the HTML to handle task lists, but it doesn't provide the specifics of how it's doing so. The regular expressions `INCOMPLETE_TASK_RE` and `COMPLETE_TASK_RE` and their replacements `INCOMPLETE_TASK_SUB` and `COMPLETE_TASK_SUB` are not defined in the provided context, so we can't determine the exact HTML structure it generates.\n\nHowever, in general, a GitHub-style task list might be written in Markdown like this:\n\n```markdown\n- [ ] Item 1\n  - [x] Sub-item 1\n  - [ ] Sub-item 2\n- [ ] Item 2\n```\n\nAnd it might be rendered in HTML like this:\n\n```html\n<ul>\n  <li><input type=\"checkbox\"> Item 1\n    <ul>\n      <li><input type=\"checkbox\" checked> Sub-item 1</li>\n      <li><input type=\"checkbox\"> Sub-item 2</li>\n    </ul>\n  </li>\n  <li><input type=\"checkbox\"> Item 2</li>\n</ul>\n```\n\nPlease note that this is a general example and might not reflect the exact behavior of the provided code.",
+      "predicted_answer": "Grip uses the GitHub Markdown API to render markdown, including GitHub-style task lists with nested items. However, the README.md file provided in the context does not specifically mention the handling of task lists. \n\nHere's a general example of how GitHub-style task lists are rendered:\n\nMarkdown Input:\n```markdown\n- [ ] Parent task\n  - [x] Nested task 1\n  - [ ] Nested task 2\n```\n\nHTML Output:\n```html\n<ul>\n  <li><input type=\"checkbox\" disabled=\"\"> Parent task\n    <ul>\n      <li><input type=\"checkbox\" checked=\"\" disabled=\"\"> Nested task 1</li>\n      <li><input type=\"checkbox\" disabled=\"\"> Nested task 2</li>\n    </ul>\n  </li>\n</ul>\n```\n\nPlease note that the actual rendering might vary slightly based on the specific styles and scripts applied by GitHub.",
       "success": true,
       "error": null,
-      "response_time": 13.99588680267334,
-      "status_code": 200,
+      "response_time": 8.068332195281982,
       "metrics": {
-        "bleu_score": 0.13419139771001856,
+        "bleu_score": 0.07174336916231594,
         "rouge_scores": {
-          "rouge1": 0.39718804920913886,
-          "rouge2": 0.10582010582010581,
-          "rougeL": 0.22847100175746923
+          "rouge1": 0.367965367965368,
+          "rouge2": 0.10434782608695652,
+          "rougeL": 0.23376623376623376
         },
-        "semantic_similarity": 0.24050632911392406,
-        "edit_distance_similarity": 0.22958057395143483,
+        "semantic_similarity": 0.2608695652173913,
+        "edit_distance_similarity": 0.21986754966887412,
         "length_metrics": {
-          "length_ratio": 0.7132352941176471,
-          "length_difference": 78,
+          "length_ratio": 0.40441176470588236,
+          "length_difference": 162,
           "ref_length": 272,
-          "hyp_length": 194
+          "hyp_length": 110
         },
         "readability": {
-          "flesch_reading_ease": 28.22189944134078,
-          "flesch_kincaid_grade": 15.675594573024743,
-          "gunning_fog": 18.943655227454112
+          "flesch_reading_ease": 32.10922029702974,
+          "flesch_kincaid_grade": 15.053539603960399,
+          "gunning_fog": 17.624752475247526
         },
         "content_coverage": {
-          "concept_coverage": 0.10621405351337834,
-          "key_phrase_coverage": 0.13178294573643412
+          "concept_coverage": 0.1165416354088522,
+          "key_phrase_coverage": 0.13953488372093023
         },
-        "response_time": 13.99588680267334
+        "chatgpt_score": 80,
+        "response_time": 8.068332195281982
       }
     },
     {
       "question_file": "0009.q.md",
       "question": "How does Grip handle GitHub API authentication for rate limiting, and what happens when invalid credentials are provided? Please explain the authentication flow and error handling.",
       "expected_answer": "Based on the codebase, particularly the test mocks implementation, here's how Grip handles GitHub API authentication:\n\nWhen making requests to GitHub's API, Grip uses HTTP Basic Authentication with the following flow:\n\n1. Authentication headers are checked first:\n\n```python:tests/mocks.py\ndef _authenticate(self, request):\n    if 'Authorization' not in request.headers:\n        return None\n    dummy = requests.Request()\n    requests.auth.HTTPBasicAuth(*self.auth)(dummy)\n    if request.headers['Authorization'] != dummy.headers['Authorization']:\n        return (401, {'content-type': 'application/json; charset=utf-8'},\n                '{\"message\":\"Bad credentials\"}')\n    return None\n```\n\nKey aspects of the authentication handling:\n\n1. If no Authorization header is present, requests are treated as unauthenticated (subject to stricter rate limits)\n2. When credentials are provided, they're validated using HTTP Basic Auth\n3. Invalid credentials result in a 401 response with a JSON error message: `{\"message\":\"Bad credentials\"}`\n\nThe authentication is important because GitHub's API has rate limiting:\n- Unauthenticated requests: 60 requests per hour\n- Authenticated requests: 5,000 requests per hour\n\nThis means that for heavy usage or in environments where you need to render many markdown files, proper authentication is crucial to avoid hitting rate limits.\n\nWhen using Grip, you can provide GitHub credentials either through:\n- Environment variables\n- Command line arguments\n- API configuration\n\nIf invalid credentials are provided, Grip will receive the 401 error from GitHub and fall back to unauthenticated requests, but with the lower rate limit.\n\nThis implementation ensures secure handling of credentials while maintaining compatibility with GitHub's API requirements and rate limiting policies.",
-      "predicted_answer": "The Grip application handles GitHub API authentication for rate limiting through the `auth` parameter, which is passed to the `GitHubRenderer` class during initialization. This `auth` parameter is a tuple containing the `username` and `password` or a personal access token. \n\nIf the `auth` parameter is `None`, the application checks the configuration for a `USERNAME` and `PASSWORD`. If either of these values are present, they are used to create the `auth` tuple. \n\nThe `auth` tuple is then used in the `GitHubRenderer` class to authenticate requests to the GitHub API. If the GitHub API returns a 403 status code, which indicates that the rate limit has been exceeded or the provided credentials are invalid, the application aborts the current request and renders a rate limit page with a 403 status code.\n\nIf the `auth` parameter is not provided and the `USERNAME` and `PASSWORD` are not present in the configuration, the application will make unauthenticated requests to the GitHub API. These requests are subject to a lower rate limit.\n\nIn case of an invalid `auth` parameter, the application will still attempt to make requests to the GitHub API. However, these requests will fail with a 403 status code, and the application will render the rate limit page.",
+      "predicted_answer": "Grip uses the GitHub API for rendering markdown and other operations. When the GitHub API is used without authentication, there is a limit of 60 requests per hour. This is indicated in the HTML template file `limit.html` under the `grip/templates` directory. \n\nWhen a user is authenticated, the rate limit increases to 5000 requests per hour. The authentication status is checked using the `is_authenticated` variable in the HTML template. If the user is authenticated, the error page displayed will be slightly different, indicating that the rate limit for basic authentication has been reached.\n\nIf the user is not authenticated, the error page provides information about the rate limit and why it exists. It also suggests using the `--user` and `--pass` arguments to run Grip with basic authentication, which increases the rate limit.\n\nThe error handling is done in the HTML template itself. If the `is_authenticated` variable is false, it means that the user is not authenticated or the provided credentials are invalid. In this case, the error page will display a message about the rate limit for unauthenticated users and suggest using basic authentication.\n\nThe actual authentication process is not detailed in the provided context. However, typically, the user credentials would be sent to the GitHub API for verification. If the credentials are valid, the API would return an authentication token that can be used for subsequent requests. If the credentials are invalid, the API would return an error, which would be handled by setting the `is_authenticated` variable to false.",
       "success": true,
       "error": null,
-      "response_time": 10.044933319091797,
-      "status_code": 200,
+      "response_time": 9.790282726287842,
       "metrics": {
-        "bleu_score": 0.03278954995964404,
+        "bleu_score": 0.02927591512946484,
         "rouge_scores": {
-          "rouge1": 0.4222222222222222,
-          "rouge2": 0.07589285714285714,
-          "rougeL": 0.19555555555555557
+          "rouge1": 0.4311377245508982,
+          "rouge2": 0.07615230460921844,
+          "rougeL": 0.17964071856287425
         },
-        "semantic_similarity": 0.15625,
-        "edit_distance_similarity": 0.28216454997239093,
+        "semantic_similarity": 0.1638418079096045,
+        "edit_distance_similarity": 0.27167310877967976,
         "length_metrics": {
-          "length_ratio": 0.8903508771929824,
-          "length_difference": 25,
+          "length_ratio": 1.0921052631578947,
+          "length_difference": 21,
           "ref_length": 228,
-          "hyp_length": 203
+          "hyp_length": 249
         },
         "readability": {
-          "flesch_reading_ease": 44.11916995073892,
-          "flesch_kincaid_grade": 12.148674876847295,
-          "gunning_fog": 15.410640394088672
+          "flesch_reading_ease": 36.44870105421688,
+          "flesch_kincaid_grade": 12.04162399598394,
+          "gunning_fog": 13.775200803212853
         },
         "content_coverage": {
-          "concept_coverage": 0.0353405017921147,
-          "key_phrase_coverage": 0.05734767025089606
+          "concept_coverage": 0.028297491039426526,
+          "key_phrase_coverage": 0.04659498207885305
         },
-        "response_time": 10.044933319091797
+        "chatgpt_score": 60,
+        "response_time": 9.790282726287842
       }
     },
     {
       "question_file": "0010.q.md",
       "question": "How does Grip handle syntax highlighting for different programming languages in markdown code blocks, and what happens when an unmatched language is specified? Explain the rendering process with examples.",
       "expected_answer": "Looking at the test files and HTML output, here's how Grip handles code block syntax highlighting:\n\nWhen processing a markdown code block, Grip generates different HTML structures based on the language specification:\n\n1. For recognized languages, it generates a `highlight` div with language-specific class:\n\n```html:tests/output/renderer/gfm-test.html\n<div class=\"highlight highlight-source-python\"><pre><span class=\"pl-en\">print</span>(<span class=\"pl-s\">'Hello!'</span>)</pre></div>\n<div class=\"highlight highlight-source-js\"><pre><span class=\"pl-smi\">console</span><span class=\"pl-kos\">.</span><span class=\"pl-en\">log</span><span class=\"pl-kos\">(</span><span class=\"pl-s\">'JavaScript!'</span><span class=\"pl-kos\">)</span><span class=\"pl-kos\">;</span></pre></div>\n```\n\n2. For unmatched languages, it falls back to a simpler structure:\n\n```html:tests/output/renderer/gfm-test-user-context.html\n<pre lang=\"unmatched_language\"><code>console.log('No matching language, but looks like JavaScript.');\n</code></pre>\n```\n\nThe key differences in handling are:\n\n1. Recognized languages:\n   - Get wrapped in a `div` with `highlight` and `highlight-source-{language}` classes\n   - Receive syntax-specific span elements with `pl-` prefixed classes for different code elements\n   - Support proper coloring of syntax elements like strings, functions, and operators\n\n2. Unmatched languages:\n   - Use a simpler `pre` and `code` structure\n   - Include the unmatched language as a `lang` attribute\n   - Don't receive any syntax-specific highlighting\n\nThis matches GitHub's own rendering behavior, ensuring that code blocks look the same whether viewed on GitHub or through Grip's local preview, while gracefully handling unsupported language specifications.\n\nThe syntax highlighting is particularly important for technical documentation, as it makes code examples more readable and helps distinguish different programming languages in the rendered output.",
-      "predicted_answer": "Grip uses the Python-Markdown library to render markdown text into HTML. For syntax highlighting, it uses the 'codehilite' extension provided by Python-Markdown. This extension uses Pygments, a syntax highlighting library, to highlight code blocks.\n\nWhen rendering markdown, the 'render' function is called with the markdown text as an argument. The function uses the 'markdown' function from the Python-Markdown library, passing in the text and a list of extensions to use. This list includes 'fenced_code' and 'codehilite(css_class=highlight)', among others.\n\nThe 'fenced_code' extension allows the use of fenced code blocks, which are blocks of code wrapped in triple backticks (```). You can specify the language of the code block by writing it directly after the opening backticks. For example:\n\n```python\ndef hello_world():\n    print(\"Hello, world!\")\n```\n\nThe 'codehilite' extension then uses Pygments to highlight the code block. The 'css_class=highlight' option specifies that the resulting HTML should use the 'highlight' CSS class for the code block.\n\nIf an unmatched language is specified, Pygments will not be able to highlight the code block and it will be rendered as plain text. For example, if you write:\n\n```nonexistentlanguage\ndef hello_world():\n    print(\"Hello, world!\")\n```\n\nThe code block will not be highlighted because 'nonexistentlanguage' is not a recognized language by Pygments.\n\nIn the case of the GitHubRenderer class, it sends the markdown text to the GitHub Markdown API for rendering. The API also supports syntax highlighting in fenced code blocks, and it uses Linguist, a library developed by GitHub, for language detection and syntax highlighting. If an unmatched language is specified, the API will render the code block as plain text.",
+      "predicted_answer": "Grip uses the GitHub Markdown API to render markdown files. This includes syntax highlighting for code blocks. When you specify a language for a code block in your markdown file, the API will use the appropriate syntax highlighting for that language. For example, if you specify Python for a code block like this:\n\n```python\n```python\ndef hello_world():\n    print(\"Hello, world!\")\n```\n```\n\nThe API will render the code block with Python syntax highlighting.\n\nIf you specify a language that the API doesn't recognize or doesn't have syntax highlighting for, it will simply render the code block as plain text without any syntax highlighting. For example, if you specify an unrecognized language like this:\n\n```unrecognized\n```unrecognized\nThis is some code.\n```\n```\n\nThe API will render the code block as plain text.\n\nIt's important to note that the syntax highlighting and rendering come directly from GitHub. This means that Grip will handle syntax highlighting in the same way that GitHub does. If GitHub updates their rendering engine or adds support for new languages, those changes will be reflected in Grip without requiring you to update Grip.",
       "success": true,
       "error": null,
-      "response_time": 11.569511890411377,
-      "status_code": 200,
+      "response_time": 11.19710898399353,
       "metrics": {
-        "bleu_score": 0.012514849913872894,
+        "bleu_score": 0.010348116814408122,
         "rouge_scores": {
-          "rouge1": 0.3303411131059246,
-          "rouge2": 0.05405405405405406,
-          "rougeL": 0.1472172351885099
+          "rouge1": 0.35897435897435903,
+          "rouge2": 0.04291845493562232,
+          "rougeL": 0.17094017094017094
         },
-        "semantic_similarity": 0.15846994535519127,
-        "edit_distance_similarity": 0.2068076328004126,
+        "semantic_similarity": 0.17721518987341772,
+        "edit_distance_similarity": 0.24497163486333162,
         "length_metrics": {
-          "length_ratio": 1.2644230769230769,
-          "length_difference": 55,
+          "length_ratio": 0.8846153846153846,
+          "length_difference": 24,
           "ref_length": 208,
-          "hyp_length": 263
+          "hyp_length": 184
         },
         "readability": {
-          "flesch_reading_ease": 53.99916289592761,
-          "flesch_kincaid_grade": 9.527013574660636,
-          "gunning_fog": 12.733031674208148
+          "flesch_reading_ease": 54.39590909090913,
+          "flesch_kincaid_grade": 9.73737373737374,
+          "gunning_fog": 13.434343434343436
         },
         "content_coverage": {
-          "concept_coverage": 0.026218092350951187,
-          "key_phrase_coverage": 0.046263345195729534
+          "concept_coverage": 0.024202583366284433,
+          "key_phrase_coverage": 0.03914590747330961
         },
-        "response_time": 11.569511890411377
+        "chatgpt_score": 80,
+        "response_time": 11.19710898399353
       }
     }
   ]

@@ -4,8 +4,10 @@ Comprehensive evaluation script for question-answer pairs using API endpoint.
 Processes folders containing numbered .q.md and .a.md files and generates detailed quality reports.
 """
 
+import asyncio
 import os
 import re
+from fastmcp import Client
 import requests
 import json
 import argparse
@@ -23,6 +25,13 @@ from nltk.corpus import stopwords
 from rouge_score import rouge_scorer
 import textstat
 import Levenshtein
+import openai
+
+# from app.main import mcp
+openai_client = openai.Client(
+    api_key=os.getenv("OPENAI_API_KEY"),
+    max_retries=20,
+    )
 
 # Download required NLTK data
 try:
@@ -36,13 +45,14 @@ except LookupError:
     nltk.download('stopwords')
 
 class QAEvaluator:
-    def __init__(self, api_url: str = "http://localhost:8000/ask", repo_path: str = ""):
+    def __init__(self, api_url: str = "http://localhost:8080/mcp", repo_path: str = ""):
         self.api_url = api_url
         self.repo_path = repo_path
         self.results = []
         self.response_times = []
         self.rouge_scorer = rouge_scorer.RougeScorer(['rouge1', 'rouge2', 'rougeL'], use_stemmer=True)
         self.stop_words = set(stopwords.words('english'))
+        # self.client = asyncio.run(self.client)
     
     def load_qa_pairs(self, folder_path: str) -> List[Tuple[str, str, str]]:
         """Load question-answer pairs from folder."""
@@ -80,23 +90,26 @@ class QAEvaluator:
         
         return qa_pairs
     
-    def query_api(self, question: str) -> Tuple[Optional[str], float, int]:
-        """Query API and return prediction, response time, and status code."""
+    async def query_api(self, question: str) -> Tuple[Optional[str], float, int]:
+        """Query API and return prediction, response time."""
         try:
-            payload = {"repo_path": self.repo_path, "question": question}
+            payload = {"request": {"repo_path": self.repo_path, "question": question}}
             start_time = time.time()
-            response = requests.post(self.api_url, json=payload, timeout=36000)
+
+            async with Client(self.api_url) as client:
+            # async with Client(mcp) as client:
+                # Connect via in-memory transport
+                result = await client.call_tool("ask_question", payload)
+            # response = requests.post(self.api_url, json=payload, timeout=36000)
             response_time = time.time() - start_time
-            
-            response.raise_for_status()
-            pred = response.json().get("answer", "")
-            return pred, response_time, response.status_code
+            pred = json.loads(result.content[0].text)["answer"]
+            return pred, response_time
             
         except requests.exceptions.RequestException as e:
             response_time = time.time() - start_time if 'start_time' in locals() else 0
-            return None, response_time, getattr(e.response, 'status_code', 0) if hasattr(e, 'response') else 0
+            return None, response_time
         except json.JSONDecodeError as e:
-            return None, response_time, response.status_code if 'response' in locals() else 0
+            return None, response_time if 'response' in locals() else 0
     
     def calculate_bleu_score(self, reference: str, hypothesis: str) -> float:
         """Calculate BLEU score between reference and hypothesis."""
@@ -198,12 +211,43 @@ class QAEvaluator:
             'concept_coverage': (bigram_coverage + trigram_coverage) / 2,
             'key_phrase_coverage': bigram_coverage
         }
-    
-    def evaluate_pair(self, question_file: str, question: str, expected_answer: str) -> Dict:
+
+    def ask_chatgpt_for_score(self, question: str, expected: str, predicted: str) -> Optional[int]:
+        """Ask ChatGPT to evaluate the answer and return a score between 0 and 100."""
+        prompt = f"""
+        Evaluate the following model response.
+
+        QUESTION:
+        {question}
+
+        EXPECTED ANSWER:
+        {expected}
+
+        MODEL'S ANSWER:
+        {predicted}
+
+        The model succeed or not to answer on the wanted question, give a single score between 0 to 100?
+        Reply with a single integer only, no explanation.
+        """
+        try:
+
+            response = openai_client.chat.completions.create(
+            model="gpt-4",
+            messages=[{"role": "user", "content": prompt}],
+            temperature=0,
+            )
+            content = response.choices[0].message.content
+            score = int(re.search(r'\d+', content.strip()).group())
+            return max(0, min(score, 100))  # Clamp score between 0 and 100
+        except Exception as e:
+            print(f"ChatGPT scoring failed: {e}")
+            return None
+
+    async def evaluate_pair(self, question_file: str, question: str, expected_answer: str) -> Dict:
         """Evaluate a single question-answer pair with comprehensive metrics."""
         print(f"Evaluating {question_file}...")
         
-        predicted_answer, response_time, status_code = self.query_api(question)
+        predicted_answer, response_time = await self.query_api(question)
         self.response_times.append(response_time)
         
         if predicted_answer is None:
@@ -215,7 +259,6 @@ class QAEvaluator:
                 "success": False,
                 "error": "API call failed",
                 "response_time": response_time,
-                "status_code": status_code,
                 "metrics": {}
             }
         
@@ -227,7 +270,8 @@ class QAEvaluator:
         length_metrics = self.calculate_length_metrics(expected_answer, predicted_answer)
         readability = self.calculate_readability_metrics(predicted_answer)
         coverage = self.analyze_content_coverage(expected_answer, predicted_answer)
-        
+        chatgpt_score = self.ask_chatgpt_for_score(question, expected_answer, predicted_answer)
+
         metrics = {
             "bleu_score": bleu_score,
             "rouge_scores": rouge_scores,
@@ -236,6 +280,7 @@ class QAEvaluator:
             "length_metrics": length_metrics,
             "readability": readability,
             "content_coverage": coverage,
+            "chatgpt_score": chatgpt_score,
             "response_time": response_time
         }
         
@@ -247,13 +292,12 @@ class QAEvaluator:
             "success": True,
             "error": None,
             "response_time": response_time,
-            "status_code": status_code,
             "metrics": metrics
         }
         
         return result
     
-    def run_evaluation(self, folder_path: str) -> List[Dict]:
+    async def run_evaluation(self, folder_path: str) -> List[Dict]:
         """Run comprehensive evaluation on all Q&A pairs."""
         print(f"Loading Q&A pairs from: {folder_path}")
         qa_pairs = self.load_qa_pairs(folder_path)
@@ -270,7 +314,7 @@ class QAEvaluator:
         for i, (question_file, question, answer) in enumerate(qa_pairs, 1):
             print(f"\n[{i}/{len(qa_pairs)}] Processing {question_file}")
             
-            result = self.evaluate_pair(question_file, question, answer)
+            result = await self.evaluate_pair(question_file, question, answer)
             results.append(result)
         
         total_time = time.time() - start_time
@@ -284,7 +328,7 @@ class QAEvaluator:
         if not self.results:
             return {}
         
-        successful_results = [r for r in self.results if r['success']]
+        successful_results = [r for r in self.results]
         total_count = len(self.results)
         success_count = len(successful_results)
         
@@ -313,7 +357,8 @@ class QAEvaluator:
         semantic_sims = [r['metrics']['semantic_similarity'] for r in successful_results]
         edit_sims = [r['metrics']['edit_distance_similarity'] for r in successful_results]
         length_ratios = [r['metrics']['length_metrics']['length_ratio'] for r in successful_results]
-        
+        chatgpt_scores = [r['metrics']['chatgpt_score'] for r in successful_results]
+
         # Quality metrics analysis
         quality_metrics = {
             "bleu_score": {
@@ -354,6 +399,11 @@ class QAEvaluator:
                 "mean_ratio": statistics.mean(length_ratios),
                 "median_ratio": statistics.median(length_ratios),
                 "std_ratio": statistics.stdev(length_ratios) if len(length_ratios) > 1 else 0
+            },
+            "chatgpt_score": {
+                "mean": statistics.mean(chatgpt_scores),
+                "median": statistics.median(chatgpt_scores),
+                "std": statistics.stdev(chatgpt_scores) if len(chatgpt_scores) > 1 else 0
             }
         }
         
@@ -553,11 +603,11 @@ class QAEvaluator:
         
         print(f"\n{'='*80}")
 
-def main():
+async def main():
     parser = argparse.ArgumentParser(description="Comprehensive Q&A evaluation with detailed quality reporting")
     parser.add_argument("folder", help="Path to folder containing .q.md and .a.md files")
-    parser.add_argument("--api-url", default="http://localhost:8000/ask", 
-                       help="API endpoint URL (default: http://localhost:8000/ask)")
+    parser.add_argument("--api-url", default="http://localhost:8080/mcp", 
+                       help="API endpoint URL (default: http://localhost:8080/mcp)")
     parser.add_argument("--repo-path", default="./grip-repo", 
                        help="Repository path to send to API")
     parser.add_argument("--output", "-o", default="evaluation_report.json",
@@ -568,7 +618,7 @@ def main():
     evaluator = QAEvaluator(api_url=args.api_url, repo_path=args.repo_path)
     
     try:
-        results = evaluator.run_evaluation(args.folder)
+        results = await evaluator.run_evaluation(args.folder)
         
         if results:
             evaluator.save_results(args.output)
@@ -582,4 +632,4 @@ def main():
         traceback.print_exc()
 
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())
