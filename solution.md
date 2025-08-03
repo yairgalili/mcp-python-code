@@ -36,6 +36,69 @@ After the improvements in the third test, the model returns:
 'The file that imports `browser.py` is not specified in the provided context.'
 
 
+## Q&A6
+what is ReadmeNotFoundError exception? Please give a usage example.
+### True
+An error, defined in `grip/exceptions.py`, that is raised when the specified Readme could not be found.
+It is a subclass of `NotFoundError`.
+
+An example usage can be found in `readers.py` in the `readme_for` method of the `DirectoryReader` class:
+```python:grip/readers.py
+    def readme_for(self, subpath):
+        ...
+        # Check for existence
+        if not os.path.exists(filename):
+            raise ReadmeNotFoundError(filename)
+        ...
+```
+### Model
+The `ReadmeNotFoundError` is a custom exception class in Python that inherits from the `NotFoundError`. It is used to indicate that a README file was not found at a specified path. 
+
+This exception takes two optional parameters: `path` and `message`. The `path` parameter is the path where the README file was expected to be found, and `message` is a custom error message. If a `message` is provided, it will be returned when the exception is converted to a string. If no `message` is provided but a `path` is, a default message indicating that no README was found at the specified path will be returned. If neither a `message` nor a `path` is provided, the default message from the `NotFoundError` will be returned.
+
+Here is an example of how this exception might be used:
+
+```python
+try:
+    # Attempt to open README file
+    with open('README.md', 'r') as f:
+        content = f.read()
+except FileNotFoundError:
+    # Raise custom exception if README file is not found
+    raise ReadmeNotFoundError(path='README.md')
+```
+
+In this example, if the README.md file is not found, a `ReadmeNotFoundError` will be raised with the path set to 'README.md'. If this exception is caught and printed, it will display a message saying "No README found at README.md".
+## Q&A7
+### Question
+DirectoryReader` - please explain the purpose of the class.
+### Context - does not contain the class definition
+"In file grip/app.py, the content is from .readers import DirectoryReader
+
+In file grip/readers.py, the content is     def __init__(self, path=None, silent=False):
+        super(DirectoryReader, self).__init__()
+        root_filename = os.path.abspath(self._resolve_readme(path, silent))
+        self.root_filename = root_filename
+        self.root_directory = os.path.dirname(root_filename)
+
+In file grip/api.py, the content is from .readers import DirectoryReader, StdinReader, TextReader
+
+In file grip/__init__.py, the content is from .readers import ReadmeReader, DirectoryReader, StdinReader, TextReader
+
+In file grip/readers.py, the content is     def __init__(self):
+        super(ReadmeReader, self).__init__()
+"
+
+
+
+
+
+
+
+
+
+
+
 # Compare Qwen/Qwen3-235B-A22B to GPT4 
 
 ### USER
