@@ -21,7 +21,7 @@ async def run_agent(repo_path):
     print(tools)
 
     # Create a LangGraph agent with the LLM and the MCP tools
-    llm = ChatOpenAI(model="gpt-4o", api_key=os.getenv("OPENAI_API_KEY"))
+    llm = ChatOpenAI(model="gpt-4", api_key=os.getenv("OPENAI_API_KEY"))
     agent = create_react_agent(llm, tools)
 
     # Invoke the agent

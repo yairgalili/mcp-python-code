@@ -232,7 +232,7 @@ class QAEvaluator:
         try:
 
             response = openai_client.chat.completions.create(
-            model="gpt-4o",
+            model="gpt-4",
             messages=[{"role": "user", "content": prompt}],
             temperature=0,
             )
