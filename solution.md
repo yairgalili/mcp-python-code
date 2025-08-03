@@ -106,6 +106,54 @@ The `DirectoryReader` class, defined in `grip/readers.py`, is a subclass of `Rea
 
 
 
+# Scoring via model
+The model succeed or not to answer on the wanted question, give a single score between 0 to 100?
+      
+
+
+"question": "How do I run grip from command line on a specific port?",
+      "expected_answer": "To run Grip from the command line on a specific port, you can specify the port number as an argument. \n\nHere’s how you do it:\n\n$ grip 80\n * Running on http://localhost:80/\n\nThis command starts the Grip server on port 80. You can replace 80 with any desired port number.\n\nreference:\n\n
+markdown:README.md\n    You can also specify a port:\n
+console\n    $ grip 80\n    * Running on http://localhost:80/\n    
+\n
+",
+      "predicted_answer": "You can run grip from the command line on a specific port by specifying the port number after the file or directory you want to render. The command would look like this:\n\n
+bash\ngrip <path> <port>\n
+\n\nReplace <path> with the file or directory you want to render and <port> with the port number you want to use. For example, if you want to render a README.md file in the current directory on port 8080, you would use:\n\n
+bash\ngrip ./README.md 8080\n
+",
+
+
+ChatGPT said:
+Score: 65 / 100
+
+Justification:
+✅ Positives:
+Correctly explains that the port can be specified as the second argument.
+
+Shows a valid usage example: grip ./README.md 8080.
+
+Understands the question's intent (running Grip on a specific port from the command line).
+
+❌ Negatives:
+Misses the minimal command form: grip 80 (without a path), which is what the expected answer emphasizes.
+
+Adds unnecessary detail about <path> and assumes a file must be given.
+
+Does not reference the README or match the reference formatting.
+
+Slightly verbose compared to the expected concise command form.
+
+The answer is functional and technically correct, but it diverges from the expected minimal form and misses key contextual alignment.
+
+
+
+
+
+
+
+
+
 
 
 
