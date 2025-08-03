@@ -555,7 +555,7 @@ class QAEvaluator:
 
 def main():
     parser = argparse.ArgumentParser(description="Comprehensive Q&A evaluation with detailed quality reporting")
-    parser.add_argument("folder", help="Path to folder containing .q.md and .a.md files")
+    parser.add_argument("--folder", default="grip_qa", help="Path to folder containing .q.md and .a.md files")
     parser.add_argument("--api-url", default="http://localhost:8000/ask", 
                        help="API endpoint URL (default: http://localhost:8000/ask)")
     parser.add_argument("--repo-path", default="./grip-repo", 

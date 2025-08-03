@@ -20,3 +20,4 @@ tiktoken
 Levenshtein
 textstat
 rouge_score
+binaryornot
