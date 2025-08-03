@@ -98,7 +98,7 @@ def call_openai_with_context(question, context_list, context_length=3000):
     """
 
     response = openai_client.chat.completions.create(
-        model="gpt-4",
+        model="gpt-4o",
         messages=[{"role": "user", "content": prompt}],
         temperature=0.2,
     )
