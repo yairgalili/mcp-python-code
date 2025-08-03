@@ -25,6 +25,9 @@ encode each textual files as a single chunk.
 Top k - ignore probabilities, it looks fine for now.
 encode also file names
 
+After the improvements in the third test, the model returns:
+'The file that imports `browser.py` is not specified in the provided context.'
+
 
 # Compare Qwen/Qwen3-235B-A22B to GPT4 
 
