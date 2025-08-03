@@ -20,6 +20,12 @@ get best k components by cosine_similarity
 "max": 0.3263051344690725
 }
 
+# Improve RAG
+encode each textual files as a single chunk.
+Top k - ignore probabilities, it looks fine for now.
+encode also file names
+
+
 # Compare Qwen/Qwen3-235B-A22B to GPT4 
 
 ### USER
