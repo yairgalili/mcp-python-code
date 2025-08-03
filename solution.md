@@ -88,8 +88,9 @@ In file grip/__init__.py, the content is from .readers import ReadmeReader, Dire
 In file grip/readers.py, the content is     def __init__(self):
         super(ReadmeReader, self).__init__()
 "
+### Answer 
 
-
+The `DirectoryReader` class, defined in `grip/readers.py`, is a subclass of `ReadmeReader` that reads README files from a directory. It locates a README file, normalizes paths, and provides methods to read file content (text or binary), determine file types, and track last modification times. It ensures safe access by preventing traversal outside the root directory. If no README is found, it either returns a default filename (if silent=True) or raises `ReadmeNotFoundError`.
 
 
 
