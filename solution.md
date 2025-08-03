@@ -23,7 +23,7 @@ get best k components by cosine_similarity
 # Improve RAG
 encode each textual files as a single chunk.
 Top k - ignore probabilities, it looks fine for now.
-encode also file names
+encode also file names, not only filename but all relative path
 
 After the improvements in the third test, the model returns:
 'The file that imports `browser.py` is not specified in the provided context.'
