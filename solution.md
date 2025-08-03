@@ -129,6 +129,10 @@ This would bind the server to all interfaces on port 8080.
 
 
 
+# Improvements
+different model - maybe QWEN
+different evaluation - like spider dataset in text2SQL
+different RAG - graph rag, if you do not get the right content
 
 
 
