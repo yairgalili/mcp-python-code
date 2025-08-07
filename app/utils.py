@@ -40,14 +40,19 @@ def get_top_k_chunks(query: str, chunks: List[Dict], k=5):
     # Return top-k results with similarity scores
     return ranked[:k]
     
-def call_openai_with_context(question, context_list, context_length=3000):
+def call_openai_with_context(question, context_list, context_length=3000, input_file="app/input_rag.txt"):
     def count_words(text):
         return len(text.strip().split(" "))
 
-    # Build the fixed parts of the prompt
-    intro = """
-    You are a codebase assistant. Use the context below to answer the user question.
+    if input_file:
+        with open(input_file, "r") as file:
+            file_content = file.read()
+    else:
+        file_content = ""
 
+    # Build the fixed parts of the prompt
+    intro = f"""
+    You are a codebase assistant. Use the context below to answer the user question.
     [Context Start]
     """
     
@@ -86,20 +91,7 @@ def call_openai_with_context(question, context_list, context_length=3000):
         print(warning_message)
     # Construct the final prompt
     context_str = "\n\n".join(selected_contexts)
-    prompt = f"""
-    You are a codebase assistant. Use the context below to answer the user question.
+    prompt = f""" You are a codebase assistant.  {file_content} Use the context below to answer the user question. [Context Start] {context_str} [Context End] Question: {question} Answer:"""
 
-    [Context Start]
-    {context_str}
-    [Context End]
-
-    Question: {question}
-    Answer:
-    """
-
-    response = openai_client.chat.completions.create(
-        model="gpt-4",
-        messages=[{"role": "user", "content": prompt}],
-        temperature=0.2,
-    )
+    response = openai_client.chat.completions.create(model="gpt-4", messages=[{"role": "user", "content": prompt}], temperature=0.2)
     return response.choices[0].message.content.strip()
