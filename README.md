@@ -19,7 +19,7 @@ python server.py
 ## Run the Evaluation
 This will produce a `evaluation_report.json` file.
 ```
-python eval/evaluate.py ./grip_qa
+python eval/evaluate.py ./grip-qa
 ```
 
 ## Run the Agent

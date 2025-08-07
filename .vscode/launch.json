@@ -20,7 +20,7 @@
             "type": "debugpy",
             "request": "launch",
             "module": "eval.evaluate",
-            "args": ["./grip_qa", "--repo-path", "./grip-repo"],
+            "args": ["./grip-qa", "--repo-path", "./grip-repo"],
             "console": "integratedTerminal",
             "justMyCode": true
         }
